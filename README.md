@@ -60,7 +60,7 @@ npm run dev
 
 ## Demo
 
-Visit the live app: [https://reddit2markdown.osint-app.com/]https://reddit2markdown.osint-app.com/)
+Visit the live app: [https://reddit2markdown.osint-app.com/](https://reddit2markdown.osint-app.com/)
 
 ---
 
