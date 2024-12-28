@@ -20,8 +20,6 @@ A beautiful and functional web app to convert Reddit threads into clean Markdown
 - **Backend:** Utilizes Reddit's public `.json` endpoint for seamless data fetching without authentication.
 - **Deployment:** Hosted on Netlify for quick, scalable web delivery.
 
-### 💻 **Local Execution**
-For developers, this project also includes a Python script (`main.py`) to fetch and save Markdown files locally.
 
 ---
 
