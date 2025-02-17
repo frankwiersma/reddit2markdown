@@ -9,6 +9,30 @@ export function RedditForm({ onSubmit }: RedditFormProps) {
   const [url, setUrl] = useState('');
   const [loading, setLoading] = useState(false);
 
+  // Recursive function to process a single comment and its children.
+  const processComment = (comment: any, depth = 0): string => {
+    const indent = "> ".repeat(depth);
+    let mdComment = `${indent}**u/${comment.data.author}**\n`;
+
+    // Split the comment body into lines and add indent for each line.
+    const commentBody = comment.data.body
+      .split('\n')
+      .map((line: string) => `${indent}${line}`)
+      .join('\n');
+    mdComment += `${commentBody}\n\n`;
+
+    // Check if the comment has any replies
+    if (comment.data.replies && comment.data.replies.data && comment.data.replies.data.children) {
+      comment.data.replies.data.children.forEach((child: any) => {
+        if (child.kind === 't1') {
+          mdComment += processComment(child, depth + 1);
+        }
+      });
+    }
+    
+    return mdComment;
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
@@ -26,7 +50,8 @@ export function RedditForm({ onSubmit }: RedditFormProps) {
       const comments = data[1].data.children;
       comments.forEach((comment: any) => {
         if (comment.kind === 't1') {
-          md += `**u/${comment.data.author}**\n\n${comment.data.body}\n\n`;
+          // Use the recursive processor for each top-level comment.
+          md += processComment(comment, 0);
         }
       });
       
